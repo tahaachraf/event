@@ -2,7 +2,7 @@ const express= require('express')
 const app = express()
 //const db =require('./database/connectionDB')
 const eventRoute= require('./routes/evenementRoute')
-
+const userRoute= require('./routes/userRoute')
 
 // const config = require('./config')
 // const dotenv= require('dotenv')
@@ -23,7 +23,7 @@ const eventRoute= require('./routes/evenementRoute')
 app.use(express.json())     
 
 
-app.use(eventRoute) 
+app.use(eventRoute,userRoute) 
 
 
 app.listen(5000, ()=>{console.log('Server is running with port 5000')})

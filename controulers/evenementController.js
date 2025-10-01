@@ -2,10 +2,10 @@ const db = require('../database/connectionDB')
 const ajoutevenment=async (req,res)=>{
     const e= req.body;
     console.log(e)
-    console.log('test')
+   
     try {
         
-        const sql= "INSERT INTO evenements (`ID`, `Titre`, `Discription`, `Date`, `Lieu`, `ImgEvent`, `Heure`) VALUES (NULL, ?, ?, ?, ?, ?, ?);"
+        const sql= "INSERT INTO evenements (`ID`, `Titre`, `Description`, `Date`, `Lieu`, `ImgEvent`, `Heure`) VALUES (NULL, ?, ?, ?, ?, ?, ?);"
         await db.execute(sql,[e.titre, e.description, e.date, e.lieu, e.imgEevnt, e.heur])
         res.status(201).send({msg:"ok"})
     } catch (error) {
