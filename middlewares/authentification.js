@@ -13,9 +13,7 @@ module.exports=async(req,res,next)=>{
     try {
         const decoded= jwt.verify(token,process.env.token)
         const r=await db.execute('select * from users where id_user=?',[decoded.id])
-        if (r[0][0].user_role !== "admin") {
-          return res.status(401).send({ msg: "not authorized" });
-        }
+        
         req.user=r[0][0]
         next()
     } catch (error) {

@@ -14,7 +14,7 @@ create table if not exists evenements(
     Titre varchar(100) not null,
     Description varchar(500) not null,
     Date date not null,
-    lieu varchar(500),
+    gouvernorat varchar(500),
     imgevent varchar(255),
     heure varchar(100)
 );

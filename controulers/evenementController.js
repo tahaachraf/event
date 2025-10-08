@@ -49,7 +49,52 @@ const suprimerEvenement= async (req, res)=>{
        res.status(400).send({msg:error}) 
     }
 }
+
+const filtrageEvents=async (req,res)=>{
+    const titre=req.body.titre;
+    const date=req.body.date;
+    const gov=req.body.gov;
+    try {
+        if(!titre && !date && !gov){
+            return res.status(400).send({msg:"please provide at least one filter"})
+        }
+        else if (titre && !date && !gov){
+            const sql='select * from evenements where Titre like ?;'
+            const r = await db.execute(sql, [`%${titre}%`]);
+            return res.status(200).send(r[0])
+        } else if (!titre && date && !gov){
+            const sql='select * from evenements where Date=?;'
+            const r= await db.execute(sql,[date])
+            return res.status(200).send(r[0])
+        } else if (!titre && !date && gov){
+            const sql='select * from evenements where gouvernorat=?;'
+            const r= await db.execute(sql,[gov])
+            return res.status(200).send(r[0])
+        } else if (titre && date && !gov){
+            const sql='select * from evenements where Titre like ? and Date=?;'
+            const r= await db.execute(sql,[`%${titre}%`,date])
+            return res.status(200).send(r[0])
+        } else if (titre && !date && gov){
+            const sql='select * from evenements where Titre like ? and gouvernorat=?;'
+            const r = await db.execute(sql, [`%${titre}%`, gov]);
+            return res.status(200).send(r[0])
+        }else if (!titre && date && gov){
+            const sql='select * from evenements where Date=? and gouvernorat=?;'
+            const r= await db.execute(sql,[date,gov])
+            return res.status(200).send(r[0])
+        }else {
+            const sql='select * from evenements where Titre like ? and Date=? and gouvernorat=?;'
+            const r = await db.execute(sql, [`%${titre}%`, date, gov]);
+            return res.status(200).send(r[0])
+        } 
+    } catch (error) {
+        res.status(400).send({msg:error})   
+    }
+    
+}
+
 module.exports = {
+    filtrageEvents,
     ajoutevenment,
     afficheEvenement,
     modifierEvenement,

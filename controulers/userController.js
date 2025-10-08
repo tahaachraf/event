@@ -32,7 +32,7 @@ const login=async (req,res)=>{
         if(!match){
             return res.status(400).send({msg:"password incorrect"})
         }
-        const token = await jwt.sign({id: user.id_user} , process.env.token ,{expiresIn:'1h'})
+        const token = await jwt.sign({id: user.id_user} , process.env.token ,{expiresIn:'1d'})
         res.status(200).send({msg:"ok", token})
     } catch (error) {
         res.status(400).send({msg:error})
@@ -42,14 +42,35 @@ const updateUser= async (req,res)=>{
     const {id}= req.params
     const u=req.body
     try {
-        const sql='update users set user_name=?, user_login=?, user_email=?, user_password=?, user_role=? where id_user=?'
-        await db.execute(sql,[u.name,u.login,u.email,u.password,u.role,id])
+        const sql='update users set user_name=?, user_login=?, user_email=?, user_role=? where id_user=?'
+        await db.execute(sql,[u.name,u.login,u.email,u.role,id])
         res.status(200).send({msg:"user updated"})
     } catch (error) {
         res.status(400).send({msg:error})
     }
 }
 
+const getAllUsers= async (req,res)=>{
+    try {
+        const sql='select * from users'
+        const r= await db.execute(sql)
+        res.status(200).send(r[0])
+    } catch (error) {
+        res.status(400).send({msg:error})
+    }
+}
+
+const deleteUser= async (req,res)=>{
+    const {id}= req.params;
+    try {
+        const sql='delete from users where id_user=?'
+        await db.execute(sql,[id])
+        res.status(200).send({msg:"user deleted"})
+    } catch (error) {
+        res.status(400).send({msg:error})
+    }
+}
+
 module.exports = {
-  ajouterUser,login,updateUser
+  ajouterUser,login,updateUser,getAllUsers,deleteUser
 };
