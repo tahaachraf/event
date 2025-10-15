@@ -15,7 +15,7 @@ const ajouterUser = async (req, res) => {
     const token = await jwt.sign({id: u.id_user} , process.env.token ,{expiresIn:'1h'})
     res.status(201).send({ msg: "ok" ,token});
   } catch (error) {
-    res.status(400).send({ msg: error } )
+    res.status(400).send({ msg: error })
   }
 }
 

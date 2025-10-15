@@ -7,7 +7,7 @@ create table if not exists users(
     user_login varchar(50) not null,
     user_email varchar(50) not null,
     user_password varchar(255) not null,
-    user_role enum('admin','user') default 'user'
+    user_role enum('admin','user','dev') default 'user'
 );
 create table if not exists evenements(
     ID int primary key auto_increment,

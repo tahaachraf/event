@@ -19,7 +19,7 @@ const afficheEvenement= async (req, res)=>{
     try { 
         const r = await db.execute('select * from evenements')
         console.log(r)
-        res.status(200).send({messeg:"Ok", data:r[0]}) 
+        res.status(200).send({messeg:"Ok", data:r[0]})
     } catch (error) {
         res.status(400).send({msg:error})
     }
