@@ -5,11 +5,12 @@ const jwt= require("jsonwebtoken");
 const ajouterUser = async (req, res) => {
   const u = req.body;
   console.log(u)
+  
   try {
     const newPassword = await bcrypt.hash(u.password, 10);
     u.password = newPassword;
     sql =
-      "INSERT INTO users (`id_user`, `user_name`,`user_login`, `user_email`, `user_password`, `user_role`) VALUES (NULL, ?, ?, ?, ?);";
+      "INSERT INTO users (`id_user`, `user_name`,`user_login`, `user_email`, `user_password`, `user_role`) VALUES (NULL, ?, ?, ?, ?,?);";
     await db.execute(sql, [u.name,u.login , u.email, u.password, u.role]);
     
     const token = await jwt.sign({id: u.id_user} , process.env.token ,{expiresIn:'1h'})

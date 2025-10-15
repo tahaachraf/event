@@ -1,0 +1,22 @@
+form{
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+    gap: 10px;
+}
+.title{
+  margin-top: 50px;
+    text-align: center;
+    color:rgb(138, 3, 222) ;
+}
+.subbtn{
+    background-color: rgb(138, 3, 222);
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: medium;
+    border-radius: 5px;
+    cursor: pointer;
+} 

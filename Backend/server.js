@@ -1,10 +1,11 @@
 const express= require('express')
 const app = express()
+const cors= require('cors')
 //const db =require('./database/connectionDB')
 const eventRoute= require('./routes/evenementRoute')
 const userRoute= require('./routes/userRoute')
 
-
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json())     
 app.use(eventRoute,userRoute) 
 
